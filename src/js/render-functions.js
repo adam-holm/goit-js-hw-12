@@ -2,9 +2,9 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 const gallery = document.querySelector('.gallery');
-const loader = document.querySelector('.loader'); // Додали пошук лоадера тут
+const loader = document.querySelector('.loader');
+const loadMoreBtn = document.querySelector('.load-more'); // Знаходимо кнопку
 
-// Ініціалізація лайтбоксу
 let lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
@@ -26,7 +26,8 @@ export function createGallery(images) {
       </li>`)
     .join("");
 
-  gallery.innerHTML = markup;
+  // ВАЖЛИВО: додаємо в кінець списку, щоб не видаляти старі фото
+  gallery.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
 }
 
@@ -34,12 +35,20 @@ export function clearGallery() {
   gallery.innerHTML = '';
 }
 
-// ДОДАЙ ЦІ ДВІ ФУНКЦІЇ ПРЯМО СЮДИ:
-
 export function showLoader() {
   if (loader) loader.classList.remove('is-hidden');
 }
 
 export function hideLoader() {
   if (loader) loader.classList.add('is-hidden');
+}
+
+// ДОДАЄМО ФУНКЦІЇ ДЛЯ КНОПКИ (вимога ТЗ)
+
+export function showLoadMoreButton() {
+  if (loadMoreBtn) loadMoreBtn.classList.remove('is-hidden');
+}
+
+export function hideLoadMoreButton() {
+  if (loadMoreBtn) loadMoreBtn.classList.add('is-hidden');
 }
